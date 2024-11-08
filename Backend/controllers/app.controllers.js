@@ -1,4 +1,4 @@
-import schemaa from "../models/app.model";
+import userModel from "../models/app.model.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import validator from "validator";
@@ -17,7 +17,7 @@ const loginUser = async (req,res) => {
         if(!email || !password){
             return res.status(400).json({message: "Please enter all fields"})
         }
-        const user = await schemaa.findOne({email})
+        const user = await userModel.findOne({email})
 
         if(!user){
             return res.status(400).json({message: "User does not exist"})
@@ -39,7 +39,7 @@ const registerUser = async (req,res) => {
     const {name, email, password} = req.body;
     try{
         //check if user already exists
-        const exists = await schemaa.findOne({email})
+        const exists = await userModel.findOne({email})
         if(exists){
             return res.status(400).json({message: "User already exists"})
         }
@@ -55,7 +55,7 @@ const registerUser = async (req,res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt)
 
-        const newUser = new schemaa({name, email, password: hashedPassword})
+        const newUser = new userModel({name, email, password: hashedPassword})
         const user = await newUser.save()
         const token = createToken(user._id)
         res.status(200).json({user,token})
@@ -69,10 +69,10 @@ const registerUser = async (req,res) => {
 const getUser = async (req,res) => {
     const id = req.user.id
     try{
-        const user = await schemaa.find({_id:id})
+        const user = await userModel.find({_id:id})
         res.status(200).json({user: user[0]})
     } catch(error){
         res.status(502).json({message: error.message})
     }
 }
-export {loginUser, registerUser, getUser}
+export {loginUser, registerUser}

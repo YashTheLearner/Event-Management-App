@@ -1,4 +1,4 @@
-import schemaa from "../models/app.model";
+import userModel from "../models/app.model.js";
 import { createTransport } from "nodemailer"
 import crypto from "crypto"
 import bcrypt from "bcrypt"
@@ -21,7 +21,7 @@ const forgotPassword = async (req, res) => {
     await user.save();
     
     //Send email with reset token
-    const resetUrl = `https://quicklist-mern-todo.vercel.app/resetPassword?token=${resetToken}`;
+    const resetUrl = https://quicklist-mern-todo.vercel.app/resetPassword?token=${resetToken};
     var transporter = createTransport({
         service: 'gmail',
         host: 'smtp.gmail.com',
@@ -40,7 +40,7 @@ const forgotPassword = async (req, res) => {
         html:`<h1>Reset Password</h1><h2>Click on the link to reset your password</h2><h3>${resetUrl}</h3>`
     };
 
-    await transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error);
         } else {
@@ -57,7 +57,7 @@ const resetPassword = async (req, res) => {
     
     // Verify reset token
     console.log("token: ", token);
-    const user = await schemaa.findOne({ resetToken:token });
+    const user = await userModel.findOne({ resetToken:token });
     if (!user) {
       return res.status(400).json({ message: 'Invalid token' });
     }
@@ -70,5 +70,4 @@ const resetPassword = async (req, res) => {
     
     res.status(200).json({ message: 'Password reset successful' });
   };
- export {forgotPassword, resetPassword}
-  
+export {forgotPassword, resetPassword}
