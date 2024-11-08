@@ -75,4 +75,4 @@ const getUser = async (req,res) => {
         res.status(502).json({message: error.message})
     }
 }
-export {loginUser, registerUser}
+export {loginUser, registerUser, getUser}
