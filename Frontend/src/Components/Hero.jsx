@@ -1,11 +1,13 @@
-import React from 'react'
+// Hero.jsx
+import React from 'react';
+import Login from './Login.jsx';
 
-export const Hero = () => {
+function Hero() {
   return (
-    <>
-    <div>Welcome</div>
-   <div> <a href="/login">Login</a></div>
-    <div><a href="/signup">signup</a></div>
-    </>
-  )
+    <div>
+      <Login />
+    </div>
+  );
 }
+
+export default Hero;

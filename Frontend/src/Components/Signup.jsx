@@ -1,7 +1,31 @@
-import React from "react";
-import photo from "../assets/photo.jpg"; // Assuming you want an image like in the Login component.
+import React, { useState } from "react";
+import photo from "../assets/photo.jpg";
+import axios from "../Axios/axios"; // Assuming you want an image like in the Login component.
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
+
+  const [formData, setFormData] = useState({})
+  const navigate = useNavigate();
+  
+  const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+  }
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          const result = await axios.post("/user/register", formData)
+          console.log(result);
+          alert("Registration Successful!");
+          navigate("/home")
+          
+      } catch (error) {
+          console.log(error);
+          
+      }
+  }
+
   return (
     <section className="bg-[#5C485E] min-h-screen flex items-center justify-center">
       <div className="bg-gray-100 flex rounded-2xl shadow-xl max-w-3xl p-5 items-center">
@@ -12,13 +36,14 @@ export const Signup = () => {
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-[#5C485E]">Sign Up</h2>
 
-          <form action="" className="flex flex-col gap-4" onSubmit={}>
+          <form action="" className="flex flex-col gap-4" onSubmit={handleSubmit} >
             <input
               className="p-2 mt-8 rounded-xl border"
               type="text"
               name="name"
               placeholder="Name"
               id="userName"
+              onChange={handleChange}
             />
             <input
               className="p-2 rounded-xl border"
@@ -26,6 +51,7 @@ export const Signup = () => {
               name="age"
               placeholder="Age"
               id="userAge"
+              onChange={handleChange}
             />
             <input
               className="p-2 rounded-xl border"
@@ -33,6 +59,7 @@ export const Signup = () => {
               name="username"
               placeholder="Username"
               id="userUsername"
+              onChange={handleChange}
             />
             <input
               className="p-2 rounded-xl border"
@@ -40,6 +67,7 @@ export const Signup = () => {
               name="email"
               placeholder="Email"
               id="userEmail"
+              onChange={handleChange}
             />
             <div className="relative">
               <input
