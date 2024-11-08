@@ -1,6 +1,6 @@
 //logic to create user collection and logic to define user schema
 
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const appschema = new mongoose.Schema({
     Name : String,
     age: Number,
@@ -38,4 +38,5 @@ const userschema =  new mongoose.Schema({
     },
     App : appschema
 },{versionKey : false});
-module.exports =  mongoose.model("user",userschema);
+const schemaa =  mongoose.model("user",userschema);
+export default schemaa
