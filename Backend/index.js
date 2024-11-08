@@ -1,4 +1,3 @@
-
 import express from 'express';
 
 
@@ -13,6 +12,7 @@ app.use(express.json())
 
 
 app.use("/api/user", userRouter)
+
 app.listen(port, () =>{ console.log(`Listening on localhost:${port}`)
           
 })
