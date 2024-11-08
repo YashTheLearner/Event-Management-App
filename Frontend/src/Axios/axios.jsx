@@ -1,5 +1,5 @@
 import axios from "axios"
 const instance = axios.create({
-    baseURL:"https://quick-list-mern-todo.vercel.app/api"
+    baseURL:"http://localhost:3000/api"
 })
 export default instance

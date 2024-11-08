@@ -12,7 +12,7 @@ export const Signup = () => {
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-[#5C485E]">Sign Up</h2>
 
-          <form action="" className="flex flex-col gap-4">
+          <form action="" className="flex flex-col gap-4" onSubmit={}>
             <input
               className="p-2 mt-8 rounded-xl border"
               type="text"
