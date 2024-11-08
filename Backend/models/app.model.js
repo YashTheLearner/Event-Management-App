@@ -42,6 +42,10 @@ const userschema =  new mongoose.Schema({
         type: Number,
         default: 0,
         required : false
+    },
+    username:{
+        type: String,
+        required : true
     }
 },{versionKey : false});
 
