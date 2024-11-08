@@ -5,7 +5,7 @@ import bcrypt from "bcrypt"
 import dotenv from "dotenv"
 dotenv.config()
 
-// Route to handle "forgot password" request
+// Route to handle "forgot password" requeest
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
     
