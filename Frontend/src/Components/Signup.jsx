@@ -1,7 +1,30 @@
-import React from "react";
-import photo from "../assets/photo.jpg"; // Assuming you want an image like in the Login component.
+import React, { useState } from "react";
+import photo from "../assets/photo.jpg";
+import axios from "../Axios/axios"; // Assuming you want an image like in the Login component.
+import { useNavigate } from "react-router-dom";
 
 export const Signup = () => {
+
+  const [formData, setFormData] = useState({})
+  const navigate = useNavigate();
+  
+  const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+  }
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+          const result = await axios.post("/user/register", formData)
+          console.log(result);
+          alert("Registration Successful!");
+          navigate("/home")
+          
+      } catch (error) {
+          console.log(error);
+      }
+  }
+
   return (
     <section className="bg-[#5C485E] min-h-screen flex items-center justify-center">
       <div className="bg-gray-100 flex rounded-2xl shadow-xl max-w-3xl p-5 items-center">
@@ -12,20 +35,14 @@ export const Signup = () => {
         <div className="md:w-1/2 px-8 md:px-16">
           <h2 className="font-bold text-2xl text-[#5C485E]">Sign Up</h2>
 
-          <form action="" className="flex flex-col gap-4">
+          <form action="" className="flex flex-col gap-4" onSubmit={handleSubmit} >
             <input
               className="p-2 mt-8 rounded-xl border"
               type="text"
               name="name"
               placeholder="Name"
               id="userName"
-            />
-            <input
-              className="p-2 rounded-xl border"
-              type="number"
-              name="age"
-              placeholder="Age"
-              id="userAge"
+              onChange={handleChange}
             />
             <input
               className="p-2 rounded-xl border"
@@ -33,6 +50,7 @@ export const Signup = () => {
               name="username"
               placeholder="Username"
               id="userUsername"
+              onChange={handleChange}
             />
             <input
               className="p-2 rounded-xl border"
@@ -40,6 +58,7 @@ export const Signup = () => {
               name="email"
               placeholder="Email"
               id="userEmail"
+              onChange={handleChange}
             />
             <div className="relative">
               <input
@@ -48,6 +67,7 @@ export const Signup = () => {
                 name="password"
                 placeholder="Password"
                 id="userPassword"
+                onChange={handleChange}
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -102,17 +122,6 @@ export const Signup = () => {
             </svg>
             Sign up with Google
           </button>
-{/* 
-          <div className="mt-5 text-xs border-b border-[#302434] py-4 text-[#302434]">
-            <a href="#">Forgot your password?</a>
-          </div>
-
-          <div className="mt-3 text-xs flex justify-between items-center text-[#302434]">
-            <p>Already have an account?</p>
-            <button className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
-              Login
-            </button>
-          </div> */}
         </div>
       </div>
     </section>
