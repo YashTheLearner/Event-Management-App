@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import userModel from "./app.model.js";
 
 const eventSchema = new mongoose.Schema({
   title: {
@@ -20,7 +19,7 @@ const eventSchema = new mongoose.Schema({
   },
   Mode: {
     type: String,
-    required:true
+    required: true
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
@@ -31,8 +30,7 @@ const eventSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',  // Reference to the User model (optional, if you want to track attendees)
   }],
-  // Add any other event-related fields as necessary (e.g., event type, image URL)
-});
+}, { versionKey: false });
 
 const Event = mongoose.model('Event', eventSchema);
-export default Event
+export default Event;
