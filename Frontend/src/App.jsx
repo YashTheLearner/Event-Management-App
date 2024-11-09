@@ -2,9 +2,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './Components/Home';
+import Sidebar from './Components/Sidebar';
 import Login from './Components/Login';
 import { Signup } from './Components/Signup';
-import Sidebar from './Components/SideBar';
 import Profile from './Components/Profile';
 
 function App() {
