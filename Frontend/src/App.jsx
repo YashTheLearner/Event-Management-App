@@ -10,7 +10,7 @@ import Profile from './Components/Profile';
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Sidebar />} />
+      <Route path="/" element={<Login />} />
       <Route path="/home" element={<Home />} />
       <Route path="/register" element={<Signup />} />
       <Route path="/sidebar" element={<Sidebar />} />
