@@ -43,7 +43,7 @@ const loginUser = async (req,res) => {
 
 //register user
 const registerUser = async (req,res) => {
-    const {name, email, password,username , age} = req.body;
+    const {name, email, password,username } = req.body;
     try{
         //check if user already exists
         const exists = await userModel.findOne({email})
@@ -66,7 +66,7 @@ const registerUser = async (req,res) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt)
 
-        const newUser = new userModel({name, email, password: hashedPassword , age , username})
+        const newUser = new userModel({name, email, password: hashedPassword , username})
         const user = await newUser.save()
         const token = createToken(user._id)
         console.log("user created successfully")
@@ -86,6 +86,7 @@ const registerUser = async (req,res) => {
 
 //get user info
 const getUser = async (req,res) => {
+    console.log(req);
     const id = req.user.id
     try{
         const user = await userModel.find({_id:id})
