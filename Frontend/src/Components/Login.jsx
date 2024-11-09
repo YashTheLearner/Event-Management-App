@@ -1,3 +1,4 @@
+// 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import photo from "../assets/photo.jpg";
@@ -33,12 +34,12 @@ const Login = () => {
   };
 
   return (
-    <section className="bg-[#5C485E] min-h-screen flex items-center justify-center">
+    <section className="bg-[rgba(17,24,39,1)] min-h-screen flex items-center justify-center">
       <ToastContainer /> {/* Add ToastContainer to display toasts */}
       <div className="bg-gray-100 flex rounded-2xl shadow-xl max-w-3xl p-5 items-center">
         <div className="md:w-1/2 px-8 md:px-16">
-          <h2 className="font-bold text-2xl text-[#5C485E]">Login</h2>
-          <p className="text-xs mt-4 text-[#5C485E]">
+          <h2 className="font-bold text-2xl" style={{ color: "rgba(17,24,39,1)" }}>Login</h2>
+          <p className="text-xs mt-4" style={{ color: "rgba(17,24,39,1)" }}>
             If you are already a member, easily log in
           </p>
 
@@ -72,7 +73,7 @@ const Login = () => {
                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
               </svg>
             </div>
-            <button className="bg-[#302434] rounded-xl font-bold text-white py-2 hover:scale-105 duration-300 hover:bg-gray-300 hover:text-[#302434]">
+            <button className="bg-[rgba(17,24,39,1)] rounded-xl font-bold text-white py-2 hover:scale-105 duration-300 hover:bg-gray-300 hover:text-[rgba(17,24,39,1)]">
               Login
             </button>
           </form>
@@ -83,7 +84,7 @@ const Login = () => {
             <hr className="border-gray-400" />
           </div>
 
-          <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 text-[#002D74]">
+          <button className="bg-white border py-2 w-full rounded-xl mt-5 flex justify-center items-center text-sm hover:scale-105 duration-300 text-[rgba(17,24,39,1)]">
             <svg
               className="mr-3"
               xmlns="http://www.w3.org/2000/svg"
@@ -110,19 +111,18 @@ const Login = () => {
             Login with Google
           </button>
 
-          <div className="mt-5 text-xs border-b border-[#302434] py-4 text-[#302434]">
+          <div className="mt-5 text-xs border-b border-[rgba(17,24,39,1)] py-4 text-[rgba(17,24,39,1)]">
             <a href="#">Forgot your password?</a>
           </div>
 
-          <div className="mt-3 text-xs flex justify-between items-center text-[#302434]">
+          <div className="mt-3 text-xs flex justify-between items-center text-[rgba(17,24,39,1)]">
             <p>Dont have an account?</p>
             <button 
-  className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300" 
-  onClick={() => navigate("/register")} // Wrap navigate in an arrow function
->
-  Register
-</button>
-
+              className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300" 
+              onClick={() => navigate("/register")} // Wrap navigate in an arrow function
+            >
+              Register
+            </button>
           </div>
         </div>
 
@@ -133,6 +133,5 @@ const Login = () => {
     </section>
   );
 };
-
 
 export default Login;
