@@ -22,7 +22,6 @@ export const Signup = () => {
           
       } catch (error) {
           console.log(error);
-          
       }
   }
 
@@ -43,14 +42,6 @@ export const Signup = () => {
               name="name"
               placeholder="Name"
               id="userName"
-              onChange={handleChange}
-            />
-            <input
-              className="p-2 rounded-xl border"
-              type="number"
-              name="age"
-              placeholder="Age"
-              id="userAge"
               onChange={handleChange}
             />
             <input
@@ -76,6 +67,7 @@ export const Signup = () => {
                 name="password"
                 placeholder="Password"
                 id="userPassword"
+                onChange={handleChange}
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -130,17 +122,6 @@ export const Signup = () => {
             </svg>
             Sign up with Google
           </button>
-{/* 
-          <div className="mt-5 text-xs border-b border-[#302434] py-4 text-[#302434]">
-            <a href="#">Forgot your password?</a>
-          </div>
-
-          <div className="mt-3 text-xs flex justify-between items-center text-[#302434]">
-            <p>Already have an account?</p>
-            <button className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300">
-              Login
-            </button>
-          </div> */}
         </div>
       </div>
     </section>
