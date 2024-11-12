@@ -7,6 +7,7 @@ import axios from "../Axios/axios.jsx";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate(); // Initialize navigate
 
   const handleSubmit = async (e) => {
@@ -38,7 +39,7 @@ const Login = () => {
       <ToastContainer /> {/* Add ToastContainer to display toasts */}
       <div className="bg-gray-100 flex rounded-2xl shadow-xl max-w-3xl p-5 items-center">
         <div className="md:w-1/2 px-8 md:px-16">
-          <h2 className="font-bold text-2xl" style={{ color: "rgba(17,24,39,1)" }}>Login</h2>
+          <h2 className="font-bold text-2xl" style= {{ color: "rgba(17,24,39,1)" }}>Login</h2>
           <p className="text-xs mt-4" style={{ color: "rgba(17,24,39,1)" }}>
             If you are already a member, easily log in
           </p>
@@ -55,7 +56,7 @@ const Login = () => {
             <div className="relative">
               <input
                 className="p-2 rounded-xl border w-full"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="Password"
                 id="userPassword"
@@ -68,6 +69,7 @@ const Login = () => {
                 fill="gray"
                 className="bi bi-eye absolute top-1/2 right-3 -translate-y-1/2"
                 viewBox="0 0 16 16"
+                onClick={() => setShowPassword(!showPassword)}
               >
                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
@@ -90,7 +92,7 @@ const Login = () => {
             <p>Dont have an account?</p>
             <button 
               className="py-2 px-5 bg-white border rounded-xl hover:scale-110 duration-300" 
-              onClick={() => navigate("/register")} // Wrap navigate in an arrow function
+              onClick={() => navigate("/signup")} // Wrap navigate in an arrow function
             >
               Register
             </button>

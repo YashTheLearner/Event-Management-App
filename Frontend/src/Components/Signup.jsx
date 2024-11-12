@@ -200,7 +200,7 @@ export const Signup = () => {
               <input
                 className="p-2 rounded-xl border w-full"
                 type={showPassword ? "text" : "password"}
-                type="password"
+                
                 name="password"
                 placeholder="Password"
                 id="userPassword"
@@ -225,7 +225,8 @@ export const Signup = () => {
           </form>
 
           <div className="text-xs mt-2 text-[#302434]">
-            <a href="#">Forgot your password? Login</a>
+            <a href="#">Forgot your password? </a>
+            <a href="" onClick={()=>{navigate("/login")}} >Login</a>
           </div>
 
           
