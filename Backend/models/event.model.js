@@ -5,10 +5,22 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
+  ShortDescription: {
     type: String,
     required: true,
   },
+  LongDescription: {
+    type: String,
+    required: true,
+  },
+  img:{
+    type: String,
+    required: false,
+    
+     
+  },
+  
+
   date: {
     type: Date,
     required: true,

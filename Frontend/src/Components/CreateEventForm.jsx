@@ -26,8 +26,7 @@ const CreateEventForm = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    // Here you would handle form submission, e.g., send form data to your backend
+    e.preventDefault(); // Prevent the default form submission behavior
     try {
       const formDataToSend = new FormData();
       for (const key in formData) {
@@ -36,9 +35,7 @@ const CreateEventForm = () => {
 
       // Replace "/event/create" with your actual API endpoint
       const result = await axios.post("/event/create", formDataToSend, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+       
       });
 
       toast.success("Event created successfully!");
@@ -46,6 +43,11 @@ const CreateEventForm = () => {
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to create event");
     }
+  };
+
+  // Here you handle the onClick function for submitting form data
+  const handleClick = (e) => {
+    handleSubmit(e); // Call the existing handleSubmit function when the button is clicked
   };
 
   return (
@@ -173,7 +175,8 @@ const CreateEventForm = () => {
             />
           </div>
           <button
-            type="submit"
+            type="button" // Use type="button" here, as handleSubmit is called via onClick
+            onClick={handleClick} // Call the handleSubmit function when clicked
             className="w-full bg-[#ffcc00] text-[#1f2937] font-bold py-3 rounded-lg hover:bg-[#ffd700] transition duration-300"
           >
             Create Event

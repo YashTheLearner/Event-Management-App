@@ -12,22 +12,23 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData); // Log formData to check if it's sending the correct values
+  
     try {
       const result = await axios.post("/user/login", formData);
       console.log(result);
-      
+  
       // Show success toast
       toast.success("Successfully logged in!");
-      
+  
       // Navigate to Home component
       navigate("/home");
     } catch (error) {
       console.log(error);
-
-      // Show error toast
       toast.error(error.response?.data?.message || "Login failed");
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
