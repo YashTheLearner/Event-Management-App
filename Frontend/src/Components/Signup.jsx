@@ -255,3 +255,5 @@ export const Signup = () => {
     </section>
   );
 };
+
+export default Signup;
