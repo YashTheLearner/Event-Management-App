@@ -1,203 +1,187 @@
-// import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate if needed
+import { toast, ToastContainer } from "react-toastify"; // Optional for success/error feedback
+import axios from "../Axios/axios.jsx"; // Replace with your Axios instance if needed
 
-// const CreateEventForm = () => {
-//   const [imagePreview, setImagePreview] = useState('');
+const CreateEventForm = () => {
+  const [formData, setFormData] = useState({
+    eventTitle: "",
+    shortDescription: "",
+    detailedDescription: "",
+    eventImage: null,
+    dateTime: "",
+    location: "",
+    pincode: "",
+    capacity: "",
+  });
+  const navigate = useNavigate(); // Initialize navigate if you want to redirect after form submission
 
-//   const showPreview = (event) => {
-//     const file = event.target.files[0];
-//     if (file) {
-//       const reader = new FileReader();
-//       reader.onload = (e) => {
-//         setImagePreview(e.target.result);
-//       };
-//       reader.readAsDataURL(file);
-//     }
-//   };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-//   const handleSubmit = (event) => {
-//     const pincode = event.target['event-pincode'].value;
-//     const pincodePattern = /^[0-9]{6}$/;
-//     if (!pincodePattern.test(pincode)) {
-//       alert('Please enter a valid 6-digit pincode.');
-//       event.preventDefault();
-//     }
-//   };
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, eventImage: e.target.files[0] });
+  };
 
-//   return (
-//     <main className="container mx-auto px-4 max-w-4xl">
-//       <h1 className="text-4xl font-extrabold text-center mb-10">Create Event</h1>
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Here you would handle form submission, e.g., send form data to your backend
+    try {
+      const formDataToSend = new FormData();
+      for (const key in formData) {
+        formDataToSend.append(key, formData[key]);
+      }
 
-//       <form
-//         id="create-event-form"
-//         className="space-y-8 bg-gray-800 bg-opacity-60 p-8 rounded-xl shadow-lg backdrop-filter backdrop-blur-lg backdrop-saturate-150 border border-gray-700"
-//         onSubmit={handleSubmit}
-//         noValidate
-//       >
-//         {/* Basic Information & Image Upload Section */}
-//         <section className="grid gap-6 grid-cols-1 md:grid-cols-2 items-start">
-//           {/* Basic Info */}
-//           <div className="space-y-4">
-//             <h2 className="text-2xl font-semibold">Basic Information</h2>
+      // Replace "/event/create" with your actual API endpoint
+      const result = await axios.post("/event/create", formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
-//             <div>
-//               <label htmlFor="event-title" className="block text-lg font-medium text-gray-200">
-//                 Event Title
-//               </label>
-//               <input
-//                 type="text"
-//                 id="event-title"
-//                 name="event-title"
-//                 required
-//                 className="mt-1 block w-full rounded-lg bg-gray-700 bg-opacity-80 border-transparent text-white text-base placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
-//               />
-//             </div>
+      toast.success("Event created successfully!");
+      navigate("/events"); // Navigate to the events page or another appropriate route
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to create event");
+    }
+  };
 
-//             {/* Short Description */}
-//             <div>
-//               <label htmlFor="event-short-description" className="block text-lg font-medium text-gray-200">
-//                 Short Description
-//               </label>
-//               <textarea
-//                 id="event-short-description"
-//                 name="event-short-description"
-//                 rows="2"
-//                 maxLength="100"
-//                 required
-//                 className="mt-1 block w-full rounded-lg bg-gray-700 bg-opacity-80 border-transparent text-white text-base placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
-//               ></textarea>
-//             </div>
+  return (
+    <section className="bg-[rgba(17,24,39,1)] min-h-screen flex items-center justify-center py-8">
+      <ToastContainer />
+      <div className="bg-[#1f2937] rounded-2xl shadow-2xl max-w-4xl p-8 w-full">
+        <h2 className="text-3xl font-bold text-[#ffcc00] mb-4">Create Event</h2>
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label className="block text-gray-300 mb-2" htmlFor="eventTitle">
+              Event Title
+            </label>
+            <input
+              type="text"
+              name="eventTitle"
+              id="eventTitle"
+              placeholder="Enter event title"
+              className="w-full p-3 rounded-lg bg-[#2c3e50] border border-gray-600 text-white focus:outline-none focus:border-[#ffcc00] placeholder-gray-400"
+              value={formData.eventTitle}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-300 mb-2" htmlFor="shortDescription">
+              Short Description
+            </label>
+            <input
+              type="text"
+              name="shortDescription"
+              id="shortDescription"
+              placeholder="Enter a short description"
+              className="w-full p-3 rounded-lg bg-[#2c3e50] border border-gray-600 text-white focus:outline-none focus:border-[#ffcc00] placeholder-gray-400"
+              value={formData.shortDescription}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-300 mb-2" htmlFor="detailedDescription">
+              Detailed Description
+            </label>
+            <textarea
+              name="detailedDescription"
+              id="detailedDescription"
+              placeholder="Enter detailed description"
+              className="w-full p-3 rounded-lg bg-[#2c3e50] border border-gray-600 text-white focus:outline-none focus:border-[#ffcc00] placeholder-gray-400"
+              value={formData.detailedDescription}
+              onChange={handleChange}
+              rows="4"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-300 mb-2" htmlFor="eventImage">
+              Event Image
+            </label>
+            <input
+              type="file"
+              name="eventImage"
+              id="eventImage"
+              accept="image/*"
+              className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#ffcc00] file:text-[#1f2937] hover:file:bg-[#ffd700]"
+              onChange={handleFileChange}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-300 mb-2" htmlFor="dateTime">
+              Date & Time
+            </label>
+            <input
+              type="datetime-local"
+              name="dateTime"
+              id="dateTime"
+              className="w-full p-3 rounded-lg bg-[#2c3e50] border border-gray-600 text-white focus:outline-none focus:border-[#ffcc00]"
+              value={formData.dateTime}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-300 mb-2" htmlFor="location">
+              Location
+            </label>
+            <input
+              type="text"
+              name="location"
+              id="location"
+              placeholder="Enter event location"
+              className="w-full p-3 rounded-lg bg-[#2c3e50] border border-gray-600 text-white focus:outline-none focus:border-[#ffcc00] placeholder-gray-400"
+              value={formData.location}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-300 mb-2" htmlFor="pincode">
+              Pincode
+            </label>
+            <input
+              type="text"
+              name="pincode"
+              id="pincode"
+              placeholder="Enter event pincode"
+              className="w-full p-3 rounded-lg bg-[#2c3e50] border border-gray-600 text-white focus:outline-none focus:border-[#ffcc00] placeholder-gray-400"
+              value={formData.pincode}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-300 mb-2" htmlFor="capacity">
+              Capacity
+            </label>
+            <input
+              type="number"
+              name="capacity"
+              id="capacity"
+              placeholder="Enter event capacity"
+              className="w-full p-3 rounded-lg bg-[#2c3e50] border border-gray-600 text-white focus:outline-none focus:border-[#ffcc00] placeholder-gray-400"
+              value={formData.capacity}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-[#ffcc00] text-[#1f2937] font-bold py-3 rounded-lg hover:bg-[#ffd700] transition duration-300"
+          >
+            Create Event
+          </button>
+        </form>
+      </div>
+    </section>
+  );
+};
 
-//             {/* Detailed Description */}
-//             <div>
-//               <label htmlFor="event-detailed-description" className="block text-lg font-medium text-gray-200">
-//                 Detailed Description
-//               </label>
-//               <textarea
-//                 id="event-detailed-description"
-//                 name="event-detailed-description"
-//                 rows="6"
-//                 className="mt-1 block w-full rounded-lg bg-gray-700 bg-opacity-80 border-transparent text-white text-base placeholder-gray-400 focus:border-indigo-500 focus:ring-indigo-500"
-//               ></textarea>
-//             </div>
-//           </div>
-
-//           {/* Image Upload */}
-//           <div className="space-y-4">
-//             <h2 className="text-2xl font-semibold">Event Image</h2>
-
-//             <label className="block text-lg font-medium text-gray-200">Upload Image</label>
-//             <div className="flex flex-col items-center justify-center w-full h-48 rounded-lg bg-gray-700 bg-opacity-80 border-dashed border-2 border-gray-500 text-gray-400 cursor-pointer hover:bg-gray-600 transition-all">
-//               <input
-//                 type="file"
-//                 id="event-image"
-//                 name="event-image"
-//                 accept="image/*"
-//                 className="hidden"
-//                 onChange={showPreview}
-//               />
-//               <label htmlFor="event-image" className="flex flex-col items-center space-y-2 cursor-pointer">
-//                 <svg className="w-12 h-12 text-gray-400" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-//                   <path d="M5 12h14v10h-14v-10zm16-4v4h-3v-4h-10v4h-3v-4h-3v-4h3v-3h14v3h3zm-10 5.003v2.003h2.002v-2.003h2.001v-2h-2.001v-2.002h-2.002v2.002h-2.001v2h2.001zm4.498 4.5h2.001v-2.002h-2.001v2.002zm-2-2.002v-2.002h-2.001v2.002h2.001zm-4.498 0h2.002v-2.002h-2.002v2.002zm4.498 2.502v2.002h2.001v-2.002h-2.001zm-2.498 0v2.002h-2.002v-2.002h2.002z" />
-//                 </svg>
-//                 <span className="text-base">Click to upload</span>
-//               </label>
-//             </div>
-//             {imagePreview && <img id="image-preview" src={imagePreview} alt="Preview" className="w-full mt-4 rounded-lg" />}
-//           </div>
-//         </section>
-
-//         {/* Date & Time and Location Section */}
-//         <section className="grid gap-6 grid-cols-1 md:grid-cols-2 items-start">
-//           <div className="space-y-4">
-//             <h2 className="text-2xl font-semibold">Date & Time</h2>
-
-//             <div>
-//               <label htmlFor="event-date" className="block text-lg font-medium text-gray-200">
-//                 Date
-//               </label>
-//               <input
-//                 type="date"
-//                 id="event-date"
-//                 name="event-date"
-//                 required
-//                 className="mt-1 block w-full rounded-lg bg-gray-700 bg-opacity-80 border-transparent text-white text-base focus:border-indigo-500 focus:ring-indigo-500"
-//               />
-//             </div>
-
-//             <div>
-//               <label htmlFor="event-time" className="block text-lg font-medium text-gray-200">
-//                 Time
-//               </label>
-//               <input
-//                 type="time"
-//                 id="event-time"
-//                 name="event-time"
-//                 required
-//                 className="mt-1 block w-full rounded-lg bg-gray-700 bg-opacity-80 border-transparent text-white text-base focus:border-indigo-500 focus:ring-indigo-500"
-//               />
-//             </div>
-//           </div>
-
-//           <div className="space-y-4">
-//             <h2 className="text-2xl font-semibold">Location</h2>
-
-//             <div>
-//               <label htmlFor="event-type" className="block text-lg font-medium text-gray-200">
-//                 Event Type
-//               </label>
-//               <select
-//                 id="event-type"
-//                 name="event-type"
-//                 className="mt-1 block w-full rounded-lg bg-gray-700 bg-opacity-80 border-transparent text-white text-base focus:border-indigo-500 focus:ring-indigo-500"
-//               >
-//                 <option value="in-person">In Person</option>
-//                 <option value="virtual">Virtual</option>
-//               </select>
-//             </div>
-
-//             <div>
-//               <label htmlFor="event-location" className="block text-lg font-medium text-gray-200">
-//                 Location/Link
-//               </label>
-//               <input
-//                 type="text"
-//                 id="event-location"
-//                 name="event-location"
-//                 required
-//                 className="mt-1 block w-full rounded-lg bg-gray-700 bg-opacity-80 border-transparent text-white text-base focus:border-indigo-500 focus:ring-indigo-500"
-//               />
-//             </div>
-
-//             <div>
-//               <label htmlFor="event-pincode" className="block text-lg font-medium text-gray-200">
-//                 Pincode
-//               </label>
-//               <input
-//                 type="text"
-//                 id="event-pincode"
-//                 name="event-pincode"
-//                 pattern="^[0-9]{6}$"
-//                 required
-//                 className="mt-1 block w-full rounded-lg bg-gray-700 bg-opacity-80 border-transparent text-white text-base focus:border-indigo-500 focus:ring-indigo-500"
-//                 placeholder="Enter 6-digit Pincode"
-//               />
-//             </div>
-//           </div>
-//         </section>
-
-//         {/* Capacity & Registration Section */}
-//         <section className="space-y-4">
-//           <h2 className="text-2xl font-semibold">Capacity & Registration</h2>
-
-//           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-//             <div>
-//               <label htmlFor="event-capacity" className="block text-lg font-medium text-gray-200">
-//                 Maximum Capacity
-//               </label>
-//               <input
-//                 type="number"
-//                 id="event-capacity"
-//                 name="event-capacity"
-//                 min="1"
-//                 required
-//                 className="mt-1 block w-full rounded-lg bg-gray-700 bg-opacity-80 border-transparent text-white text-base
+export default CreateEventForm;

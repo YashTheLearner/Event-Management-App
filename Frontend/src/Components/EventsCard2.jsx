@@ -1,7 +1,8 @@
-import React from 'react';
+import React from 'react'
 
-export const EventsCard = () => {
+export const EventsCard2 = () => {
   return (
+    <>
     <div class="event-card bg-[#22333b] rounded-lg overflow-hidden shadow-lg cursor-pointer transform transition-all duration-300 hover:translate-y-[-5px] hover:shadow-2xl">
     <div class="event-image-container relative bg-[#22333b] p-12 grid gap-4 overflow-hidden transition-colors">
       <img src="../assets/career-development.jpg" alt="Event Image 1" class="event-image w-full h-[150px] object-cover" />
@@ -13,5 +14,6 @@ export const EventsCard = () => {
       <p class="event-mode text-sm">Online</p>
     </div>
   </div>
-  );
-};
+    </>
+  )
+}
