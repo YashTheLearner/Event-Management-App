@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userschema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -35,12 +35,10 @@ const userschema = new mongoose.Schema(
     noOfAttended: {
       type: Number,
       default: 0,
-      required: false,
     },
     noOfHosted: {
       type: Number,
       default: 0,
-      required: false,
     },
     username: {
       type: String,
@@ -52,12 +50,24 @@ const userschema = new mongoose.Schema(
     },
     eventPreferences: {
       type: [String], // Array of strings
-      enum: ["Educational", "Music", "Cultural", "Spiritual", "Corporate"], // List of allowed values
+      enum: ["Educational", "Music", "Cultural", "Spiritual", "Corporate"],
       required: false,
     },
+    hostedEvents: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Event", // Reference to the Event model
+      },
+    ],
+    attendedEvents: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Event", // Reference to the Event model
+      },
+    ],
   },
   { versionKey: false }
 );
 
-const userModel = mongoose.model("User", userschema);
-export default userModel;
+const User = mongoose.model("User", userSchema);
+export default User;

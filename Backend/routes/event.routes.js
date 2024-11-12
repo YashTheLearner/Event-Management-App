@@ -7,7 +7,8 @@ const router = express.Router();
 // Route to create a new event
 router.post('/create',requireAuth , createEvent);
 
+
 // Route to get all events
-router.get('/all', getAllEvents);
+router.get('/all', getAllEvents );
 
 export default router;
