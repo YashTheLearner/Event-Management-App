@@ -7,7 +7,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
-import { Event } from './Components/Event';
+import Event from './Components/Event';
+import Profile from './Components/Profile';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { path: 'login', element: <Login /> },
       { path: 'signup', element: <Signup /> },
       { path: 'event', element: <Event /> },
+      { path: 'profile', element: <Profile /> },
       
     ]
   }
