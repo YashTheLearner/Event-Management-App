@@ -5,8 +5,8 @@ function ExampleCarouselImage({ text }) {
   return (
     <div className="carousel-image h-[50vh]">
       <img
-        className="d-block w-100"
-        src={`https://via.placeholder.com/800x400?text=${text}`}  // Correct way to concatenate
+        className="d-block object-cover w-full h-full" // Use object-contain to fit the full image within the container
+        src={text}  // Assuming 'text' is the image source
         alt={text}
       />
     </div>

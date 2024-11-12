@@ -1,5 +1,7 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import photo1 from '../assets/music-events.jpg'
+import photo2 from '../assets/car1.jpg'
 import ExampleCarouselImage from './ExampleCarouselImage';
 
 function UncontrolledExample() {
@@ -14,25 +16,27 @@ function UncontrolledExample() {
   return (
     <Carousel style={carouselStyle}>
       <Carousel.Item style={itemStyle}>
-        <ExampleCarouselImage text="First slide" />
+        <ExampleCarouselImage text={photo1} />
         <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h3>Workshop
+          </h3>
+          <p>Workshop gave us the practical knowledge about things, Fast grab Your Seats</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item style={itemStyle}>
-        <ExampleCarouselImage text="Second slide" />
+        <ExampleCarouselImage text={photo2} />
         <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3>Social Gathering</h3>
+          <p>Social gathering increases knowledge of ourselves. This helps us socialize.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item style={itemStyle}>
-        <ExampleCarouselImage text="Third slide" />
+        <ExampleCarouselImage text={photo1} />
         <Carousel.Caption>
-          <h3>Third slide label</h3>
+          <h3>Music Festival
+          </h3>
           <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          Music Brings people together, So when you are coming to this show.
           </p>
         </Carousel.Caption>
       </Carousel.Item>
