@@ -30,6 +30,15 @@ const eventSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',  // Reference to the User model (optional, if you want to track attendees)
   }],
+  capacity:{
+    type: Number,
+    required: true,
+    default: 0,
+    validate: {
+      validator: Number.isInteger,
+      message: '{VALUE} is not an integer.'
+    }
+  }
 }, { versionKey: false });
 
 const Event = mongoose.model('Event', eventSchema);
