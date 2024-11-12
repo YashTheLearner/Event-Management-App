@@ -9,6 +9,8 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Event from './Components/Event';
 import Profile from './Components/Profile';
+import CreateEventForm from './Components/CreateEventForm';
+import Sidebar from './Components/Sidebar';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +22,8 @@ const router = createBrowserRouter([
       { path: 'signup', element: <Signup /> },
       { path: 'event', element: <Event /> },
       { path: 'profile', element: <Profile /> },
-      
+      { path: 'createEvent', element: <CreateEventForm /> },
+      { path: 'side', element: <Sidebar /> },
     ]
   }
 ]);
