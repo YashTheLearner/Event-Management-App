@@ -13,4 +13,5 @@ route.post("/register" , registerUser);
 route.get("/getuser", requireAuth, getUser)
 route.get('/:userId/attendedevents', requireAuth, getAttendedEvents);
 route.get('/:userId/hostedevents', getHostedEvents);
+router.get('/avatar', requireAuth, getUserAvatar);
 export default route

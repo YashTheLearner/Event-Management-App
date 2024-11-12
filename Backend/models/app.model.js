@@ -65,6 +65,10 @@ const userSchema = new mongoose.Schema(
         ref: "Event", // Reference to the Event model
       },
     ],
+    avatar :{
+      type: String,
+      default: 'default.jpg'  
+    }
   },
   { versionKey: false }
 );
